@@ -42,9 +42,9 @@ jobs:
           
       - name: Create directory on remote if not exists
         run: |
-          sshpass -p "${{ secrets.SERVER_PASS }}" \
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" \
           ssh -o StrictHostKeyChecking=no \
-          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
           "mkdir -p /opt/subcol-pokeapi"
           
       - name: Copy docker-compose.yml to Contabo
