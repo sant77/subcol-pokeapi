@@ -35,6 +35,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass rsync
+          
+      - name: Debug workspace
+          run: |
+            echo "Root workspace:"
+            ls -R .
 
       - name: Copy docker-compose.yml to Contabo
         run: |
