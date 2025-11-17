@@ -2,8 +2,11 @@ version: "3.9"
 
 services:
   pokemon-api:
-    build: .
+
+    build: ..
+    image: sant77/subcol-pokeapi:latest
     container_name: pokemon-api
+
     ports:
       - "8000:8000"
     restart: always
