@@ -31,16 +31,15 @@ jobs:
     needs: build_and_push
 
     steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Install sshpass & rsync
         run: |
           sudo apt-get update
           sudo apt-get install -y sshpass rsync
           
-      - name: Debug workspace
-        run: |
-          echo "Root workspace:"
-          ls -R .
-
       - name: Copy docker-compose.yml to Contabo
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" \
