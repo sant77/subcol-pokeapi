@@ -40,8 +40,16 @@ jobs:
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" \
           scp -o StrictHostKeyChecking=no \
-          ./app/docker-compose/docker-compose.yml \
+          app/docker-compose/docker-compose.yml \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/subcol-pokeapi/docker-compose.yml
+
+      - name: Create directory on remote if not exists
+        run: |
+          sshpass -p "${{ secrets.SERVER_PASS }}" \
+          ssh -o StrictHostKeyChecking=no \
+          ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} \
+          "mkdir -p /opt/subcol-pokeapi"
+
 
       - name: Deploy to Contabo
         run: |
