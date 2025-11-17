@@ -20,8 +20,8 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Docker image
-        run: docker build -t sant77/subcol-pokeapi:latest .
+      - name: Build Docker image (Dockerfile está en /app)
+        run: docker build -t sant77/subcol-pokeapi:latest ./app
 
       - name: Push Docker image
         run: docker push sant77/subcol-pokeapi:latest
@@ -31,14 +31,24 @@ jobs:
     needs: build_and_push
 
     steps:
-      - name: Install sshpass
-        run: sudo apt-get update && sudo apt-get install -y sshpass
+      - name: Install sshpass & rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass rsync
 
-      - name: Deploy to Contabo with PASSWORD
+      - name: Copy docker-compose.yml to Contabo
+        run: |
+          sshpass -p "${{ secrets.SSH_PASSWORD }}" \
+          scp -o StrictHostKeyChecking=no \
+          ./app/docker-compose/docker-compose.yml \
+          ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/subcol-pokeapi/docker-compose.yml
+
+      - name: Deploy to Contabo
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" \
           ssh -o StrictHostKeyChecking=no \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} << 'EOF'
+
             cd /opt/subcol-pokeapi
 
             echo "📥 Pulling latest Docker image..."
