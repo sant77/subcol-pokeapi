@@ -75,14 +75,15 @@ Ejecuta:
 - Limpia imágenes antiguas
 
 ## 🎯 Roadmap
+- [x] Agregar caché sencillo
 
- Agregar caché Redis para acelerar respuestas
+- [ ] Agregar caché Redis para acelerar respuestas
 
- Hacer tests unitarios del dominio
+- [ ] Hacer tests unitarios del dominio
 
- Agregar versionado de imágenes Docker
+- [x] Agregar versionado de imágenes Docker
 
- Agregar métricas Prometheus
+- [ ] Agregar almacenamiento de logs a AWS Cloudwatch
 
 ## ❤️ Contribuciones
 
