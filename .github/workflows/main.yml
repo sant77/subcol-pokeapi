@@ -44,7 +44,7 @@ jobs:
         run: |
           sshpass -p "${{ secrets.SSH_PASSWORD }}" \
           scp -o StrictHostKeyChecking=no \
-          app/docker-compose/docker-compose.yml \
+          ./app/docker-compose/docker-compose.yml \
           ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/opt/subcol-pokeapi/docker-compose.yml
 
       - name: Create directory on remote if not exists
