@@ -4,12 +4,12 @@ def type_factor(attacker_type, defender_type, type_relations_cache, repo):
 
     rel = type_relations_cache[defender_type]
 
-    if attacker_type in rel["no_to"]:
-        return 0
-    if attacker_type in rel["double_to"]:
-        return 2
-    if attacker_type in rel["half_to"]:
-        return 0.5
+    if attacker_type in rel["no_from"]:
+        return 0        
+    if attacker_type in rel["double_from"]:
+        return 2       
+    if attacker_type in rel["half_from"]:
+        return 0.5      
     return 1
 
 
